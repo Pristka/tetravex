@@ -129,7 +129,14 @@ public class ConsoleUI {
                     }
                     break;
                 case "fast":
-                    field.swapTiles(0,0,0,0);
+                    field.swapTiles(0,1,0,1);
+                    field.swapTiles(0,2,0,2);
+                    field.swapTiles(1,0,1,0);
+                    field.swapTiles(1,1,1,1);
+                    field.swapTiles(1,2,1,2);
+                    field.swapTiles(2,0,2,0);
+                    field.swapTiles(2,1,2,1);
+                    field.swapTiles(2,2,2,2);
                     printField();
                     inGame = true;
                     break;

@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Minesweeper</title>
+    <title>Tetravex</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <link rel="stylesheet" href="/css/stylesheet.css" />
+    <link rel="stylesheet" href="/css/tetravex-olejnik.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css"
@@ -16,7 +16,7 @@
         //<![CDATA[
         $(document).ready(function () {
             $.ajax({
-                url: "/rest/score/mines",
+                url: "/rest/score/tetravex",
             }).done(function (json) {
                 for (var i = 0; i < json.length; i++) {
                     var score = json[i];
@@ -26,13 +26,14 @@
         });
 
         $(document).ready(function () {
-            $('#example').DataTable({
-                columns: [
-                    {data: "player"},
-                    {data: "points"},
-                    {data: "playedOn"}
-                ],
-                ajax: {url: "/rest/score/mines", dataSrc: ''}
+            $.ajax({
+                url: "/rest/comment/tetravex",
+            }).done(function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var comment = json[i];
+                    var date = new Date(comment.commentedOn);
+                    $("#commentList").append($("<li>" + comment.player + " " + comment.comment + " " + date + "</li>"));
+                }
             });
         });
         //]]>
@@ -42,7 +43,7 @@
 
 <body>
 
-<h1>Minesweeper</h1>
+<h1>Tetravex</h1>
 
 <!-- Here add rendering of your game field-->
 <!--<p th:utext='${webUI.renderAsHtml()}' />-->
@@ -56,7 +57,7 @@
 <hr/>
 <h2>Hall of fame</h2>
 
-<h3>Server side generation - Thymeleaf</h3>
+<h3>Server side generation - Thymeleaf Score</h3>
 <table>
     <thead>
     <tr>
@@ -74,8 +75,29 @@
     </tbody>
 </table>
 
-<h3>Client side generation - simple AJAX call</h3>
+<h3>Server side generation - Thymeleaf Comment</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Player</th>
+        <th>Comment</th>
+        <th>Commented on</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comment: ${comments}">
+        <td th:text="${comment.player}"></td>
+        <td th:text="${comment.comment}"></td>
+        <td th:text="${comment.commentedOn}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Score List</h3>
 <ol id="scoreList"/>
+
+<h3>Comment List</h3>
+<ol id="commentList"/>
 
 <h3>Client side generation - jQuery DataTable</h3>
 <table id="example"/>
