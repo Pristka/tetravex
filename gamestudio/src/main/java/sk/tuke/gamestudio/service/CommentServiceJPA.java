@@ -1,7 +1,7 @@
-package sk.tuke.gamestudio.server.service;
+package sk.tuke.gamestudio.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import sk.tuke.gamestudio.server.entity.Comment;
+import sk.tuke.gamestudio.entity.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

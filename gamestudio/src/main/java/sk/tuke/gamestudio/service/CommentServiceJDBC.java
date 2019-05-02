@@ -1,7 +1,7 @@
-package sk.tuke.gamestudio.server.service;
+package sk.tuke.gamestudio.service;
 
 
-import sk.tuke.gamestudio.server.entity.Comment;
+import sk.tuke.gamestudio.entity.Comment;
 
 import java.sql.*;
 import java.util.ArrayList;

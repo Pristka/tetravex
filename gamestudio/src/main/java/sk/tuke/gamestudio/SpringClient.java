@@ -1,7 +1,6 @@
 package sk.tuke.gamestudio;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -9,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import sk.tuke.gamestudio.game.tetravex.olejnik.consoleui.ConsoleUI;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
-import sk.tuke.gamestudio.server.service.*;
+import sk.tuke.gamestudio.service.*;
 
 @Configuration
 @SpringBootApplication

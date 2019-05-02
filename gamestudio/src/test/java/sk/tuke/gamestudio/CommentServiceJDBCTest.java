@@ -1,10 +1,10 @@
 package sk.tuke.gamestudio;
 
 import org.junit.Test;
-import sk.tuke.gamestudio.server.entity.Comment;
-import sk.tuke.gamestudio.server.service.CommentException;
-import sk.tuke.gamestudio.server.service.CommentService;
-import sk.tuke.gamestudio.server.service.CommentServiceJDBC;
+import sk.tuke.gamestudio.entity.Comment;
+import sk.tuke.gamestudio.service.CommentException;
+import sk.tuke.gamestudio.service.CommentService;
+import sk.tuke.gamestudio.service.CommentServiceJDBC;
 
 import java.util.Date;
 import java.util.List;

@@ -1,7 +1,7 @@
-package sk.tuke.gamestudio.server.service;
+package sk.tuke.gamestudio.service;
 
 
-import sk.tuke.gamestudio.server.entity.Rating;
+import sk.tuke.gamestudio.entity.Rating;
 
 import java.sql.*;
 

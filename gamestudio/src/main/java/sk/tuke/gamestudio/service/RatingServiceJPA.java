@@ -1,7 +1,7 @@
-package sk.tuke.gamestudio.server.service;
+package sk.tuke.gamestudio.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import sk.tuke.gamestudio.server.entity.Rating;
+import sk.tuke.gamestudio.entity.Rating;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

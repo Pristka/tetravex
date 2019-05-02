@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Minesweeper</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="/css/stylesheet.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+          href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"></link>
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+    <!-- Hall of Fame example with JavaScript  -->
+    <script type="text/javascript">
+        //<![CDATA[
+        $(document).ready(function () {
+            $.ajax({
+                url: "/rest/score/mines",
+            }).done(function (json) {
+                for (var i = 0; i < json.length; i++) {
+                    var score = json[i];
+                    $("#scoreList").append($("<li>" + score.player + " " + score.points + " " + score.playedOn + "</li>"));
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#example').DataTable({
+                columns: [
+                    {data: "player"},
+                    {data: "points"},
+                    {data: "playedOn"}
+                ],
+                ajax: {url: "/rest/score/mines", dataSrc: ''}
+            });
+        });
+        //]]>
+    </script>
+
+</head>
+
+<body>
+
+<h1>Minesweeper</h1>
+
+<!-- Here add rendering of your game field-->
+<!--<p th:utext='${webUI.renderAsHtml()}' />-->
+
+
+<!-- Here add commands (buttons) for controlling your game, e.g.: -->
+<a href="?command=new">New Game</a>
+<a href="?command=next">Next move</a>
+<a href="?command=auto">Auto play</a>
+
+<hr/>
+<h2>Hall of fame</h2>
+
+<h3>Server side generation - Thymeleaf</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Player</th>
+        <th>Points</th>
+        <th>Played on</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="score: ${scores}">
+        <td th:text="${score.player}"></td>
+        <td th:text="${score.points}"></td>
+        <td th:text="${score.playedOn}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Client side generation - simple AJAX call</h3>
+<ol id="scoreList"/>
+
+<h3>Client side generation - jQuery DataTable</h3>
+<table id="example"/>
+</body>
+</html>

@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.GameState;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Tile;
-import sk.tuke.gamestudio.server.entity.Comment;
-import sk.tuke.gamestudio.server.entity.Rating;
-import sk.tuke.gamestudio.server.entity.Score;
-import sk.tuke.gamestudio.server.service.*;
+import sk.tuke.gamestudio.entity.Comment;
+import sk.tuke.gamestudio.entity.Rating;
+import sk.tuke.gamestudio.entity.Score;
+import sk.tuke.gamestudio.service.*;
 
 
 import java.io.BufferedReader;

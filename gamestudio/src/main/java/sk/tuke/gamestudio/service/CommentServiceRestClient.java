@@ -1,6 +1,6 @@
-package sk.tuke.gamestudio.server.service;
+package sk.tuke.gamestudio.service;
 
-import sk.tuke.gamestudio.server.entity.Comment;
+import sk.tuke.gamestudio.entity.Comment;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

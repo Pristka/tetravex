@@ -1,10 +1,9 @@
 package sk.tuke.gamestudio;
 
 import org.junit.Test;
-import sk.tuke.gamestudio.server.entity.Rating;
-import sk.tuke.gamestudio.server.service.RatingException;
-import sk.tuke.gamestudio.server.service.RatingService;
-import sk.tuke.gamestudio.server.service.RatingServiceJDBC;
+import sk.tuke.gamestudio.entity.Rating;
+import sk.tuke.gamestudio.service.RatingService;
+import sk.tuke.gamestudio.service.RatingServiceJDBC;
 
 import java.util.Date;
 

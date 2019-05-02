@@ -1,9 +1,9 @@
 package sk.tuke.gamestudio;
 
 import org.junit.Test;
-import sk.tuke.gamestudio.server.entity.Score;
-import sk.tuke.gamestudio.server.service.ScoreService;
-import sk.tuke.gamestudio.server.service.ScoreServiceJDBC;
+import sk.tuke.gamestudio.entity.Score;
+import sk.tuke.gamestudio.service.ScoreService;
+import sk.tuke.gamestudio.service.ScoreServiceJDBC;
 
 import java.util.Date;
 import java.util.List;

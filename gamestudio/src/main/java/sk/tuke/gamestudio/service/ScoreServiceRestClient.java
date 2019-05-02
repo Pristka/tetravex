@@ -1,7 +1,7 @@
-package sk.tuke.gamestudio.server.service;
+package sk.tuke.gamestudio.service;
 
 
-import sk.tuke.gamestudio.server.entity.Score;
+import sk.tuke.gamestudio.entity.Score;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
