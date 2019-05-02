@@ -102,10 +102,9 @@ public class Field {
                 Tile tile = getTile(startingField,i,j);
                 Tile tile2 = getTile(startingField,randomRow,randomColumn);
 
-                while(i == randomRow && j == randomColumn){
-                    randomRow = rand.nextInt(3);
-                    randomColumn = rand.nextInt(3);
-                }
+                if(i == randomRow && j == randomColumn){
+                    ;
+                }else {
                     tempUpper = tile.getUpperNumber();
                     tempBottom = tile.getBottomNumber();
                     tempLeft = tile.getLeftNumber();
@@ -120,7 +119,7 @@ public class Field {
                     tile2.setBottomNumber(tempBottom);
                     tile2.setLeftNumber(tempLeft);
                     tile2.setRightNumber(tempRight);
-
+                }
             }
         }
 
