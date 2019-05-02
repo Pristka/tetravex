@@ -129,7 +129,7 @@ public class ConsoleUI {
                     }
                     break;
                 case "fast":
-                    field.removeTile(0, 0, 0, 0);
+                    field.swapTiles(0,0,0,0);
                     printField();
                     inGame = true;
                     break;
