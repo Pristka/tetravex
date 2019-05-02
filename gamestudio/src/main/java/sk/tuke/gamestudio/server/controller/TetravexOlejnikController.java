@@ -20,14 +20,18 @@ public class TetravexOlejnikController {
 
     private WebUI webUI = new WebUI();
 
-    @Autowired
-    private ScoreService scoreService;
+    private final ScoreService scoreService;
+
+    private final CommentService commentService;
+
+    private final RatingServiceJPA ratingService;
 
     @Autowired
-    private CommentService commentService;
-
-    @Autowired
-    private RatingServiceJPA ratingService;
+    public TetravexOlejnikController(ScoreService scoreService, CommentService commentService, RatingServiceJPA ratingService) {
+        this.scoreService = scoreService;
+        this.commentService = commentService;
+        this.ratingService = ratingService;
+    }
 
 
     @RequestMapping("/tetravex-olejnik")

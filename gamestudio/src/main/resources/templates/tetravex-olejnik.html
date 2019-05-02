@@ -16,7 +16,7 @@
         //<![CDATA[
         $(document).ready(function () {
             $.ajax({
-                url: "/rest/score/tetravex",
+                url: "/rest/score/tetravex"
             }).done(function (json) {
                 for (var i = 0; i < json.length; i++) {
                     var score = json[i];
@@ -27,7 +27,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: "/rest/comment/tetravex",
+                url: "/rest/comment/tetravex"
             }).done(function (json) {
                 for (var i = 0; i < json.length; i++) {
                     var comment = json[i];

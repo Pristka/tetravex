@@ -29,11 +29,11 @@ public class ConsoleUI {
     private CommentService commentService;
     @Autowired
     private RatingService ratingService;
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private boolean inGame;
 
 
-    final Pattern INPUT_PATTERN
+    private final Pattern INPUT_PATTERN
             = Pattern.compile("([A-C])([0-3])([A-C])([0-3])");
 
     public ConsoleUI(Field field) {
@@ -176,7 +176,7 @@ public class ConsoleUI {
         }
     }
 
-    protected void processInput() {
+    private void processInput() {
         System.out.println("Write input (fi. A1A2, A1A5, X):");
         String line = readLine();
 
@@ -203,7 +203,7 @@ public class ConsoleUI {
         }
     }
 
-    protected void processComment() {
+    private void processComment() {
         System.out.println("Write your comment");
         String line = readLine();
 
@@ -224,7 +224,7 @@ public class ConsoleUI {
         }
     }
 
-    protected void processRating() {
+    private void processRating() {
         System.out.println("Write your rating from scale 1-5. Bigger numbers counts as 5");
 
         String line = readLine();
@@ -277,7 +277,7 @@ public class ConsoleUI {
 
     private void printFieldBody(Tile[][] tajl) {
 
-        System.out.print((char) ('A'));
+        System.out.print(('A'));
         System.out.print(' ');
 
 
@@ -306,7 +306,7 @@ public class ConsoleUI {
         System.out.println();
 
 
-        System.out.print((char) ('B'));
+        System.out.print(('B'));
         System.out.print(' ');
 
         for (int i = 0; i < field.getRowCount(); i++) {
@@ -334,7 +334,7 @@ public class ConsoleUI {
         System.out.println();
 
 
-        System.out.print((char) ('C'));
+        System.out.print(('C'));
         System.out.print(' ');
         for (int i = 0; i < field.getRowCount(); i++) {
             final Tile tile = field.getTile(tajl, 2, i);
