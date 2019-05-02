@@ -34,7 +34,7 @@ public class ConsoleUI {
 
 
     final Pattern INPUT_PATTERN
-            = Pattern.compile("([SR])([A-C])([0-3])([A-C])([0-3])");
+            = Pattern.compile("([A-C])([0-3])([A-C])([0-3])");
 
     public ConsoleUI(Field field) {
         this.field = field;
@@ -170,7 +170,7 @@ public class ConsoleUI {
     }
 
     protected void processInput() {
-        System.out.println("Write input (fi. SA1A2, RA1A5, X):");
+        System.out.println("Write input (fi. A1A2, A1A5, X):");
         String line = readLine();
 
         if (line.equals("X")) {
@@ -186,23 +186,11 @@ public class ConsoleUI {
         Matcher m = INPUT_PATTERN.matcher(line);
         if (m.matches()) {
 
-            int rowF1 = m.group(2).charAt(0) - 65;
-            int colF1 = Integer.parseInt(m.group(3)) - 1;
-            int rowF2 = m.group(4).charAt(0) - 65;
-            int colF2 = Integer.parseInt(m.group(5)) - 1;
-            if (m.group(1).equals("S")) {
-                if (field.getTile(field.getStartingField(), rowF2, colF2).getUpperNumber() == 0) {
-                    System.out.println("You cannot replace tile with nothing");
-                    return;
-                }
-                field.setTile(rowF1, colF1, rowF2, colF2);
-            } else {
-                if (field.getTile(field.getPlayingField(), rowF1, colF1).getUpperNumber() == 0) {
-                    System.out.println("You cannot replace tile with nothing");
-                    return;
-                }
-                field.removeTile(rowF1, colF1, rowF2, colF2);
-            }
+            int rowF1 = m.group(1).charAt(0) - 65;
+            int colF1 = Integer.parseInt(m.group(2)) - 1;
+            int rowF2 = m.group(3).charAt(0) - 65;
+            int colF2 = Integer.parseInt(m.group(4)) - 1;
+            field.swapTiles(rowF1,colF1,rowF2,colF2);
         } else {
             System.out.println("Wrong input. Try again");
         }

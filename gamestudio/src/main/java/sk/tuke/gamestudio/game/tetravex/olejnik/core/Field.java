@@ -11,6 +11,7 @@ public class Field {
     private Tile[][] startingField;
     private int setTileCount;
     private int solvedCounter;
+    private int counter;
     private GameState state = GameState.PLAYING;
     private long startMillis;
 
@@ -195,6 +196,61 @@ public class Field {
         setTileCount = 0;
     }
 
+    public void swapTiles(int rowF1, int columnF1, int rowF2, int columnF2){
+        if(state == GameState.PLAYING){
+
+            if(playingField[rowF1][columnF1].getUpperNumber() == 0 & startingField[rowF2][columnF2].getUpperNumber() == 0){
+                System.out.println("Swapping two empty tiles has no effect");
+            } else{
+                int upper = playingField[rowF1][columnF1].getUpperNumber();
+                int bottom = playingField[rowF1][columnF1].getBottomNumber();
+                int left = playingField[rowF1][columnF1].getLeftNumber();
+                int right = playingField[rowF1][columnF1].getRightNumber();
+
+                playingField[rowF1][columnF1].setUpperNumber(startingField[rowF2][columnF2].getUpperNumber());
+                playingField[rowF1][columnF1].setRightNumber(startingField[rowF2][columnF2].getRightNumber());
+                playingField[rowF1][columnF1].setBottomNumber(startingField[rowF2][columnF2].getBottomNumber());
+                playingField[rowF1][columnF1].setLeftNumber(startingField[rowF2][columnF2].getLeftNumber());
+
+                startingField[rowF2][columnF2].setUpperNumber(upper);
+                startingField[rowF2][columnF2].setRightNumber(right);
+                startingField[rowF2][columnF2].setBottomNumber(bottom);
+                startingField[rowF2][columnF2].setLeftNumber(left);
+
+                if(playingField[rowF1][columnF1].getUpperNumber() == 0){
+                    playingField[rowF1][columnF1].setState(TileState.EMPTY);
+                    startingField[rowF2][columnF2].setState(TileState.PLACED);
+                } else {
+                    playingField[rowF1][columnF1].setState(TileState.PLACED);
+                    startingField[rowF2][columnF2].setState(TileState.EMPTY);
+                }
+                checkIfAllTilesArePlaced();
+            }
+        }
+    }
+
+    private void checkIfAllTilesArePlaced(){
+        for (int i = 0; i < getRowCount(); i++){
+            for (int j = 0; j < getColumnCount(); j++) {
+                Tile playingTile = getTile(playingField, i, j);
+                if(playingTile.getUpperNumber() != 0){
+                    counter++;
+                }
+            }
+        }
+        System.out.println("Counter je:" + counter);
+        if(counter == 9){
+            if(checkAdjacentNumbers()){
+                state = GameState.SOLVED;
+            }
+        }else {
+            counter = 0;
+        }
+    }
+
+
+
+
     public void setTile(int rowF1, int columnF1, int rowF2, int columnF2) { //zapis do playingField z startingField
         if (state == GameState.PLAYING) {
 
@@ -246,10 +302,10 @@ public class Field {
 
     }
 
-    private void isSolved() {
+    /*private void isSolved() {
 
         if (setTileCount == rowCount * columnCount) checkAdjacentNumbers();
-    }
+    }*/
 
     private boolean checkAdjacentNumbers() {
 
