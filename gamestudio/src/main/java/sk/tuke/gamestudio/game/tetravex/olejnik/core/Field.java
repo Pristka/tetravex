@@ -9,8 +9,6 @@ public class Field {
     private final int columnCount;
     private Tile[][] playingField;
     private Tile[][] startingField;
-    private int setTileCount;
-    private int solvedCounter;
     private int counter;
     private GameState state = GameState.PLAYING;
     private long startMillis;
@@ -185,7 +183,7 @@ public class Field {
 
     private boolean checkAdjacentNumbers() {
 
-        solvedCounter = 0;
+        int solvedCounter = 0;
         if (playingField[0][0].getRightNumber() == playingField[0][1].getLeftNumber()) solvedCounter++;
         if (playingField[0][1].getRightNumber() == playingField[0][2].getLeftNumber()) solvedCounter++;
 

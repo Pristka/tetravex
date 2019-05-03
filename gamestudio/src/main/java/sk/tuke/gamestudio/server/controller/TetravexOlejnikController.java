@@ -10,6 +10,7 @@ import org.springframework.web.context.WebApplicationContext;
 import sk.tuke.gamestudio.entity.Comment;
 import sk.tuke.gamestudio.entity.Rating;
 import sk.tuke.gamestudio.entity.Score;
+import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
 import sk.tuke.gamestudio.game.tetravex.olejnik.webui.WebUI;
 import sk.tuke.gamestudio.service.*;
 
@@ -27,6 +28,8 @@ public class TetravexOlejnikController {
     private final CommentService commentService;
 
     private final RatingServiceJPA ratingService;
+
+    private Field field;
 
     @Autowired
     public TetravexOlejnikController(ScoreService scoreService, CommentService commentService, RatingServiceJPA ratingService) {
@@ -64,6 +67,12 @@ public class TetravexOlejnikController {
     @RequestMapping("/rating")
     public String rating(String player, int rating, Model model) throws RatingException {
         ratingService.setRating(new Rating(player,"tetravex",rating,new Date()));
+        return "tetravex-olejnik";
+    }
+
+    @RequestMapping("/commandNew")
+    public String tetravexNew() {
+        field = new Field(3,3);
         return "tetravex-olejnik";
     }
 }
