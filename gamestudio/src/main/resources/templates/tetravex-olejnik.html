@@ -36,6 +36,16 @@
                 }
             });
         });
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/rest/rating/tetravex"
+            }).done(function (json) {
+                for (var i = 0; i < json; i++) {
+                    $(" #avgRating").append($("<span>" + " * " + "</span>"));
+                }
+            });
+        });
         //]]>
     </script>
 
@@ -46,7 +56,8 @@
 <h1>Tetravex</h1>
 
 <!-- Here add rendering of your game field-->
-<!--<p th:utext='${webUI.renderAsHtml()}' />-->
+
+<p th:utext='${webUI.renderAsHtml()}' />
 
 
 <!-- Here add commands (buttons) for controlling your game, e.g.: -->
@@ -93,13 +104,48 @@
     </tbody>
 </table>
 
-<h3>Score List</h3>
-<ol id="scoreList"/>
+<div id="Comment">
+<fieldset>
+    <form action="/comment" method="post">
+        <label>Player Name:</label>
+        <label>
+            <input name="player" type="text" th:required="required"/>
+        </label>
+        <label>Comment:</label>
+        <label>
+            <input name="comment" type="text" th:required="required"/>
+        </label><br/><br/>
+        <input type="submit" value="ADD Comment" class="button"/><br/>
+    </form>
+</fieldset>
+</div>
 
-<h3>Comment List</h3>
-<ol id="commentList"/>
+<div id="Rating">
+    <fieldset>
+        <form action="/rating" method="post">
+            <label>Player Name:</label>
+            <label>
+                <input name="player" type="text" th:required="required"/>
+            </label>
+            <label>Rating:</label>
+            <label>
+                <input name="rating" min="1" max="5" type="number" th:required="required"/>
+            </label><br/><br/>
+            <input type="submit" value="ADD Rating" class="button"/><br/>
+        </form>
+    </fieldset>
+</div>
 
-<h3>Client side generation - jQuery DataTable</h3>
-<table id="example"/>
+<!--<h3>Score List</h3>-->
+<!--<ol id="scoreList"/>-->
+
+<!--<h3>Comment List</h3>-->
+<!--<ol id="commentList"/>-->
+
+<!--<h3>Average rating</h3>-->
+<!--<ol id="avgRating"/>-->
+
+<!--<h3>Client side generation - jQuery DataTable</h3>-->
+<!--<table id="example"/>-->
 </body>
 </html>

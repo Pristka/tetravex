@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 import sk.tuke.gamestudio.entity.Comment;
+import sk.tuke.gamestudio.entity.Rating;
 import sk.tuke.gamestudio.entity.Score;
 import sk.tuke.gamestudio.game.tetravex.olejnik.webui.WebUI;
 import sk.tuke.gamestudio.service.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -51,5 +53,17 @@ public class TetravexOlejnikController {
 
         return "tetravex-olejnik"; //same name as the template
 
+    }
+
+    @RequestMapping("/comment")
+    public String comment(String player, String comment, Model model) throws CommentException {
+        commentService.addComment(new Comment(player,"tetravex",comment,new Date()));
+        return "tetravex-olejnik";
+    }
+
+    @RequestMapping("/rating")
+    public String rating(String player, int rating, Model model) throws RatingException {
+        ratingService.setRating(new Rating(player,"tetravex",rating,new Date()));
+        return "tetravex-olejnik";
     }
 }
