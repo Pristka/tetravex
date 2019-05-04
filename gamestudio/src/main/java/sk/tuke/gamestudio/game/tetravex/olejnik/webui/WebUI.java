@@ -11,7 +11,7 @@ public class WebUI {
     private Field playingField;
     private Field startingField;
 
-    public void processCommand(String command, String row, String column) {
+    public void processCommand(String command, String rowF1, String columnF1,String rowF2, String columnF2) {
         if (playingField == null){
             playingField = new Field(3,3);
         }
