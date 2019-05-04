@@ -8,27 +8,28 @@ import java.util.Formatter;
 
 public class WebUI {
 
-    private Field playingField;
-    private Field startingField;
+    private Field field;
+
 
     public void processCommand(String command, String rowF1, String columnF1,String rowF2, String columnF2) {
-        if (playingField == null){
-            playingField = new Field(3,3);
+        if (field == null){
+            field = new Field(3,3);
         }
-        if(startingField == null){
-            startingField = new Field(3,3);
-        }
+
         if ("new".equals(command)) {
-            playingField = new Field(3, 3);
-            startingField = new Field(3, 3);
+            field = new Field(3, 3);
 
         }else if("shuffle".equals(command)){
-            startingField.switchNumbers();
-        }else{
-            //pohyb
-            if(playingField.getState() == GameState.SOLVED){
-
-            }
+            field.switchNumbers();
+        }else if ("fast".equals(command)){
+            field.swapTiles(0,1,0,1);
+            field.swapTiles(0,2,0,2);
+            field.swapTiles(1,0,1,0);
+            field.swapTiles(1,1,1,1);
+            field.swapTiles(1,2,1,2);
+            field.swapTiles(2,0,2,0);
+            field.swapTiles(2,1,2,1);
+            field.swapTiles(2,2,2,2);
         }
     }
 
@@ -38,10 +39,10 @@ public class WebUI {
         sb.format("<table class='field'>\n");
         sb.format("<tr>\n");
         sb.format("<table class= 'playingField'>\n");
-        for (int row = 0; row < playingField.getRowCount(); row++) {
+        for (int row = 0; row < field.getRowCount(); row++) {
             sb.format("<tr>\n");
-            for (int column = 0; column < playingField.getColumnCount(); column++) {
-                Tile tile = playingField.getTile(playingField.getPlayingField(),row, column);
+            for (int column = 0; column < field.getColumnCount(); column++) {
+                Tile tile = field.getTile(field.getPlayingField(),row, column);
                 renderField(sb, row, column, tile);
             }
         }
@@ -49,10 +50,10 @@ public class WebUI {
 
         sb.format("<table class= 'starting'>\n");
         //startingField.switchNumbers();
-        for (int row = 0; row < startingField.getRowCount(); row++) {
+        for (int row = 0; row < field.getRowCount(); row++) {
             sb.format("<tr>\n");
-            for (int column = 0; column < startingField.getColumnCount(); column++) {
-                Tile tile2 = startingField.getTile(startingField.getStartingField(),row,column);
+            for (int column = 0; column < field.getColumnCount(); column++) {
+                Tile tile2 = field.getTile(field.getStartingField(),row,column);
                 renderField(sb, row, column, tile2);
 
             }

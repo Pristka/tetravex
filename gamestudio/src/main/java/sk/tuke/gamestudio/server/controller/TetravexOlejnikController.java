@@ -41,8 +41,8 @@ public class TetravexOlejnikController {
 
     @RequestMapping("/tetravex-olejnik")
     public String tetravex(@RequestParam(value = "command", required = false) String command,
-                        @RequestParam(value = "rowF1", required = false) String rowF1,
-                        @RequestParam(value = "columnF1", required = false) String columnF1,
+                           @RequestParam(value = "rowF1", required = false) String rowF1,
+                           @RequestParam(value = "columnF1", required = false) String columnF1,
                            @RequestParam(value = "rowF2", required = false) String rowF2,
                            @RequestParam(value = "columnF2", required = false) String columnF2,
                         Model model) throws CommentException {
@@ -74,9 +74,4 @@ public class TetravexOlejnikController {
         return "tetravex-olejnik";
     }
 
-    @RequestMapping("/commandNew")
-    public String tetravexNew() {
-        field = new Field(3,3);
-        return "tetravex-olejnik";
-    }
 }

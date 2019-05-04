@@ -13,6 +13,7 @@
 
     <!-- Hall of Fame example with JavaScript  -->
     <script type="text/javascript">
+
         //<![CDATA[
         $(document).ready(function () {
             $.ajax({
@@ -41,9 +42,8 @@
             $.ajax({
                 url: "/rest/rating/tetravex"
             }).done(function (json) {
-                for (var i = 0; i < json; i++) {
-                    $(" #avgRating").append($("<span>" + " * " + "</span>"));
-                }
+                    $(" #avgRating").append($("<span>" + json + "</span>"));
+
             });
         });
         //]]>
@@ -63,6 +63,7 @@
 <!-- Here add commands (buttons) for controlling your game, e.g.: -->
 <a href="?command=new">New Game</a>
 <a href="?command=shuffle">Shuffle numbers</a>
+<a href="?command=fast">Fast mode</a>
 
 <hr/>
 <h2>Hall of fame</h2>
