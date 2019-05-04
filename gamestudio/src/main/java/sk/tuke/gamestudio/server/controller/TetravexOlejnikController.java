@@ -41,15 +41,13 @@ public class TetravexOlejnikController {
 
     @RequestMapping("/tetravex-olejnik")
     public String tetravex(@RequestParam(value = "command", required = false) String command,
-                           @RequestParam(value = "rowF1", required = false) String rowF1,
-                           @RequestParam(value = "columnF1", required = false) String columnF1,
-                           @RequestParam(value = "rowF2", required = false) String rowF2,
-                           @RequestParam(value = "columnF2", required = false) String columnF2,
+                           @RequestParam(value = "row", required = false) String row,
+                           @RequestParam(value = "column", required = false) String column,
                         Model model) throws CommentException {
 
         // if required, add additional code, e.g. to check provided parameters for null
 
-        webUI.processCommand(command, rowF1, columnF1,rowF2,columnF2);
+        webUI.processCommand(command, row, column);
         model.addAttribute("webUI", webUI);
         List<Score> bestScores = scoreService.getBestScores("tetravex");
         List<Comment> getComments = commentService.getComments("tetravex");
