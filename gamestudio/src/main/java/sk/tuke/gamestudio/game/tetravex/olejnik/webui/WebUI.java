@@ -8,51 +8,55 @@ import java.util.Formatter;
 public class WebUI {
 
     private Field field;
-    private boolean gameStarted = false;
+    private boolean gameStarted;
     private String selectedRow;
     private String selectedColumn;
 
 
     public void processCommand(String command, String row, String column) {
-
-        switch (command) {
-            case "new":
-                field = new Field(3, 3);
-                gameStarted = false;
-                break;
-            case "shuffle":
-                field.switchNumbers();
-                break;
-            case "fast":
-                if(!gameStarted) {
-                    field.swapTiles(0, 1, 0, 1);
-                    field.swapTiles(0, 2, 0, 2);
-                    field.swapTiles(1, 0, 1, 0);
-                    field.swapTiles(1, 1, 1, 1);
-                    field.swapTiles(1, 2, 1, 2);
-                    field.swapTiles(2, 0, 2, 0);
-                    field.swapTiles(2, 1, 2, 1);
-                    field.swapTiles(2, 2, 2, 2);
-                } else {
-                    System.out.println("Game has already begun");
-                }
-                break;
-            case "select":
-                if (selectedRow == null || selectedColumn == null) {
-                    selectedRow = row;
-                    selectedColumn = column;
-                } else {
-                    field.swapTiles(Integer.valueOf(selectedRow),
-                            Integer.valueOf(selectedColumn),
-                            Integer.valueOf(row),
-                            Integer.valueOf(column));
-                    selectedColumn = null;
-                    selectedRow = null;
-                }
-                gameStarted = true;
-                break;
-            default:
-                System.out.println("Incorrect command");
+        if (command == null) {
+            field = new Field(3, 3);
+            gameStarted = false;
+        } else {
+            switch (command) {
+                case "new":
+                    field = new Field(3, 3);
+                    gameStarted = false;
+                    break;
+                case "shuffle":
+                    field.switchNumbers();
+                    break;
+                case "fast":
+                    if (!gameStarted) {
+                        field.swapTiles(0, 1, 0, 1);
+                        field.swapTiles(0, 2, 0, 2);
+                        field.swapTiles(1, 0, 1, 0);
+                        field.swapTiles(1, 1, 1, 1);
+                        field.swapTiles(1, 2, 1, 2);
+                        field.swapTiles(2, 0, 2, 0);
+                        field.swapTiles(2, 1, 2, 1);
+                        field.swapTiles(2, 2, 2, 2);
+                    } else {
+                        System.out.println("Game has already begun");
+                    }
+                    break;
+                case "select":
+                    if (selectedRow == null || selectedColumn == null) {
+                        selectedRow = row;
+                        selectedColumn = column;
+                    } else {
+                        field.swapTiles(Integer.valueOf(selectedRow),
+                                Integer.valueOf(selectedColumn),
+                                Integer.valueOf(row),
+                                Integer.valueOf(column));
+                        selectedColumn = null;
+                        selectedRow = null;
+                    }
+                    gameStarted = true;
+                    break;
+                default:
+                    System.out.println("Incorrect command");
+            }
         }
 
     }
