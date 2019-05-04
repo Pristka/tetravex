@@ -3,6 +3,7 @@ package sk.tuke.gamestudio.game.tetravex.olejnik.webui;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Tile;
 
+import javax.swing.*;
 import java.util.Formatter;
 
 public class WebUI {
