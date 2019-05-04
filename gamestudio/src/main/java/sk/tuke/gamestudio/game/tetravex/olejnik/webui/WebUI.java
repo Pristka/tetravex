@@ -20,7 +20,7 @@ public class WebUI {
         sb.format("<tr>\n");
         sb.format("<table class= 'playingField'>\n");
         for (int row = 0; row < playingField.getRowCount(); row++) {
-
+            sb.format("<tr>\n");
             for (int column = 0; column < playingField.getColumnCount(); column++) {
                 Tile tile = playingField.getTile(playingField.getPlayingField(),row, column);
                 renderField(sb, row, column, tile);
@@ -35,10 +35,10 @@ public class WebUI {
             for (int column = 0; column < startingField.getColumnCount(); column++) {
                 Tile tile2 = startingField.getTile(startingField.getStartingField(),row,column);
                 renderField(sb, row, column, tile2);
+
             }
         }
         sb.format("</table>\n");
-
 
         sb.format("</table>\n");
         return sb.toString();
