@@ -11,7 +11,7 @@ import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
 import sk.tuke.gamestudio.service.*;
 
 @Configuration
-@SpringBootApplication
+//@SpringBootApplication
 public class SpringClient {
 
     public static void main(String[] args) throws Exception {

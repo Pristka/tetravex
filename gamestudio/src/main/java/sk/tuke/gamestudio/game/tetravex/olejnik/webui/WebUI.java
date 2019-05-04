@@ -1,16 +1,35 @@
 package sk.tuke.gamestudio.game.tetravex.olejnik.webui;
 
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
+import sk.tuke.gamestudio.game.tetravex.olejnik.core.GameState;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Tile;
 
 import java.util.Formatter;
 
 public class WebUI {
 
-    private Field playingField = new Field(3,3);
-    private Field startingField = new Field(3,3);
+    private Field playingField;
+    private Field startingField;
 
     public void processCommand(String command, String row, String column) {
+        if (playingField == null){
+            playingField = new Field(3,3);
+        }
+        if(startingField == null){
+            startingField = new Field(3,3);
+        }
+        if ("new".equals(command)) {
+            playingField = new Field(3, 3);
+            startingField = new Field(3, 3);
+
+        }else if("shuffle".equals(command)){
+            startingField.switchNumbers();
+        }else{
+            //pohyb
+            if(playingField.getState() == GameState.SOLVED){
+
+            }
+        }
     }
 
     public String renderAsHtml() {
@@ -29,7 +48,7 @@ public class WebUI {
         sb.format("</table>\n");
 
         sb.format("<table class= 'starting'>\n");
-        startingField.switchNumbers();
+        //startingField.switchNumbers();
         for (int row = 0; row < startingField.getRowCount(); row++) {
             sb.format("<tr>\n");
             for (int column = 0; column < startingField.getColumnCount(); column++) {
