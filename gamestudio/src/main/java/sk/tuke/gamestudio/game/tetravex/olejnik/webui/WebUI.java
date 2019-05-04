@@ -9,6 +9,7 @@ import java.util.Formatter;
 public class WebUI {
 
     private Field field;
+    private boolean gameStarted;
 
 
     public void processCommand(String command, String rowF1, String columnF1,String rowF2, String columnF2) {
@@ -21,7 +22,9 @@ public class WebUI {
 
         }else if("shuffle".equals(command)){
             field.switchNumbers();
+            gameStarted = true;
         }else if ("fast".equals(command)){
+            if(!gameStarted){
             field.swapTiles(0,1,0,1);
             field.swapTiles(0,2,0,2);
             field.swapTiles(1,0,1,0);
@@ -30,7 +33,10 @@ public class WebUI {
             field.swapTiles(2,0,2,0);
             field.swapTiles(2,1,2,1);
             field.swapTiles(2,2,2,2);
-        }
+        }else{
+                System.out.println("Game has already begun");
+            }
+         }
     }
 
     public String renderAsHtml() {
