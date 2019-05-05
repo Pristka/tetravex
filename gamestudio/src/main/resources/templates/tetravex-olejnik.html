@@ -54,20 +54,18 @@
 <body>
 
 <h1>Tetravex</h1>
-
-<!-- Here add rendering of your game field-->
-
-<p th:utext='${webUI.renderAsHtml()}' />
+<br>
+<h2><div th:text='${@webUI.isWon() ? "!!! YOU WON !!!" : "The game is on!"}'/></h2>
 
 
+<br>
 <!-- Here add commands (buttons) for controlling your game, e.g.: -->
-<a href="tetravex-olejnik?command=new">New Game</a>
-<a href="tetravex-olejnik?command=shuffle">Shuffle numbers</a>
-<a href="tetravex-olejnik?command=fast">Fast mode</a>
-
-
+<a href="/tetravex-olejnik?command=new">New Game</a>
+<a href="/tetravex-olejnik?command=shuffle">Shuffle numbers</a>
+<a href="/tetravex-olejnik?command=fast">Fast mode</a>
 <hr/>
 
+<p th:utext='${webUI.renderAsHtml()}' />
 
 <div id="Comment">
 <fieldset>

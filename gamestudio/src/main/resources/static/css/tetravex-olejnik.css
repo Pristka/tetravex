@@ -39,13 +39,13 @@ h2 {
 }
 
 a:link, a:visited {
-  color: #045491;
+  color: #d20005;
   font-weight : bold;
   text-decoration: none;
 }
 
 a:link:hover, a:visited:hover  {
-  color: #045491;
+    color: #d20005;
   font-weight : bold;
   text-decoration : underline;
 }
@@ -124,6 +124,10 @@ a:link:hover, a:visited:hover  {
 table {
     border-collapse: collapse;
     border: none;
+    margin-right: 10%;
+}
+table.playingField{
+    color: #d20005;
 }
 td {
     padding: 0;

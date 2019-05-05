@@ -22,10 +22,8 @@ public class WebUI {
     private String selectedColumn;
     private static final String GAME_NAME = "tetravex";
     @Autowired
-    private ScoreService scoreService;
+    public ScoreService scoreService;
     private JFrame frame = new JFrame();
-
-
 
     public void processCommand(String command, String row, String column) {
         if (command == null) {
@@ -57,6 +55,10 @@ public class WebUI {
                         field.swapTiles(2, 1, 2, 1);
                         field.swapTiles(2, 2, 2, 2);
                     } else {
+                        JOptionPane.showMessageDialog(null,
+                                " You can't use fast mode because game has already begun",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
                         System.out.println("Game has already begun");
                     }
                     break;
@@ -78,6 +80,10 @@ public class WebUI {
 
                         }
                     } else {
+                        JOptionPane.showMessageDialog(null,
+                                "You need to click on starting field",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
                         System.out.println("You need to click on starting field");
                     }
                     gameStarted = true;
@@ -101,6 +107,10 @@ public class WebUI {
                         }
                         gameStarted = true;
                     } else {
+                        JOptionPane.showMessageDialog(null,
+                                "You need to click on playing field",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
                         System.out.println("You need to click on playing field");
                     }
                     break;
@@ -117,6 +127,9 @@ public class WebUI {
         Formatter sb = new Formatter();
         sb.format("<table class='field'>\n");
         sb.format("<tr>\n");
+        sb.format("<td>");
+        sb.format("<h3>Playing field</h3>");
+
         sb.format("<table class= 'playingField'>\n");
         for (int row = 0; row < field.getRowCount(); row++) {
             sb.format("<tr>\n");
@@ -125,7 +138,12 @@ public class WebUI {
                 renderField(sb, "select_playing", row, column, tile);
             }
         }
+
         sb.format("</table>\n");
+
+        sb.format("<td>");
+        sb.format("<h3>Starting field</h3>");
+
 
         sb.format("<table class= 'starting'>\n");
         //startingField.switchNumbers();
@@ -145,15 +163,14 @@ public class WebUI {
 
     private void renderField(Formatter sb, String command, int row, int column, Tile tile) {
         sb.format("<td>\n");
-        sb.format("<a href='/tetravex-olejnik?command=%s&row=%d&column=%d'>", command, row, column);
-        sb.format("\\" + tile.getUpperNumber() + "/");
+        sb.format("<h3><a href='/tetravex-olejnik?command=%s&row=%d&column=%d'>", command, row, column);
+        sb.format("\\" + tile.getUpperNumber() + "/"+ " ");
         sb.format("<br></br>");
-        sb.format(" " + tile.getLeftNumber() + "|" + tile.getRightNumber() + " " + " ");
+        sb.format(" " + tile.getLeftNumber() + "|" + tile.getRightNumber() + " " );
         sb.format("<br></br>");
-        sb.format("/" + tile.getBottomNumber() + "\\" + " ");
+        sb.format("/" + tile.getBottomNumber() + "\\" );
         sb.format("<br></br>");
-        sb.format("<br></br>");
-        sb.format("</a>");
+        sb.format("</a></h3>");
     }
 
     private void popUp(){
@@ -164,7 +181,7 @@ public class WebUI {
 
 
             String name = JOptionPane.showInputDialog(
-                    frame,
+                   null,
                     "Would you like to enter your name?",
                     "Congratulations you are winner",
                     JOptionPane.INFORMATION_MESSAGE
@@ -184,6 +201,9 @@ public class WebUI {
         }
     }
 
+    public boolean isWon(){
+        return field.getState() == GameState.SOLVED;
+    }
 
 //    private void printHeader() {
 //        StringBuilder sb = new StringBuilder();

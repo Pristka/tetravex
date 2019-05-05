@@ -14,7 +14,7 @@ public class ScoreServiceRest {
     //TODO: pridat deklaraciu premennej pre servisny komponent JPA, anotovanu @Autowired
 
     @Autowired
-    private ScoreService scoreService;
+    public ScoreService scoreService;
 
     //http://localhost:8080/rest/score
     @POST

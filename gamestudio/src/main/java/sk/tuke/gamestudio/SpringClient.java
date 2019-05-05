@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import sk.tuke.gamestudio.game.tetravex.olejnik.consoleui.ConsoleUI;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
+import sk.tuke.gamestudio.game.tetravex.olejnik.webui.WebUI;
 import sk.tuke.gamestudio.service.*;
 
 @Configuration
