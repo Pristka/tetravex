@@ -9,6 +9,11 @@ import sk.tuke.gamestudio.service.*;
 @SpringBootApplication
 @EntityScan({"sk.tuke.gamestudio.entity"})
 public class GameStudioServer {
+	static { /* too late ! */
+		System.setProperty("java.awt.headless", "false");
+		System.out.println(java.awt.GraphicsEnvironment.isHeadless());
+		/* ---> prints false */
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(GameStudioServer.class, args);
 	}

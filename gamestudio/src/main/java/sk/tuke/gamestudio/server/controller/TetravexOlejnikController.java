@@ -11,6 +11,7 @@ import sk.tuke.gamestudio.entity.Comment;
 import sk.tuke.gamestudio.entity.Rating;
 import sk.tuke.gamestudio.entity.Score;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
+import sk.tuke.gamestudio.game.tetravex.olejnik.core.GameState;
 import sk.tuke.gamestudio.game.tetravex.olejnik.webui.WebUI;
 import sk.tuke.gamestudio.service.*;
 
@@ -27,12 +28,12 @@ public class TetravexOlejnikController {
 
     private final CommentService commentService;
 
-    private final RatingServiceJPA ratingService;
+    private final RatingService ratingService;
 
-    private Field field;
+    private Field field = new Field(3,3);
 
     @Autowired
-    public TetravexOlejnikController(ScoreService scoreService, CommentService commentService, RatingServiceJPA ratingService) {
+    public TetravexOlejnikController(ScoreService scoreService, CommentService commentService, RatingService ratingService) {
         this.scoreService = scoreService;
         this.commentService = commentService;
         this.ratingService = ratingService;
@@ -49,10 +50,10 @@ public class TetravexOlejnikController {
 
         webUI.processCommand(command, row, column);
         model.addAttribute("webUI", webUI);
-        List<Score> bestScores = scoreService.getBestScores("tetravex");
-        List<Comment> getComments = commentService.getComments("tetravex");
-        model.addAttribute("scores", bestScores);
-        model.addAttribute("comments",getComments);
+//        List<Score> bestScores = scoreService.getBestScores("tetravex");
+//        List<Comment> getComments = commentService.getComments("tetravex");
+//        model.addAttribute("scores", bestScores);
+//        model.addAttribute("comments",getComments);
 
         return "tetravex-olejnik"; //same name as the template
 
@@ -71,5 +72,7 @@ public class TetravexOlejnikController {
         ratingService.setRating(new Rating(player,"tetravex",rating,new Date()));
         return "tetravex-olejnik";
     }
+
+
 
 }

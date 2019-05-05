@@ -166,6 +166,7 @@ public class Field {
             }
         }
         System.out.println("Counter je:" + counter);
+        System.out.println("Skore:" + getScore());
         if(counter == 9){
             if(checkAdjacentNumbers()){
                 state = GameState.SOLVED;

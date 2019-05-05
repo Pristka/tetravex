@@ -1,7 +1,10 @@
 package sk.tuke.gamestudio.game.tetravex.olejnik.webui;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
+import sk.tuke.gamestudio.game.tetravex.olejnik.core.GameState;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Tile;
+import sk.tuke.gamestudio.service.ScoreService;
 
 import javax.swing.*;
 import java.util.Formatter;
@@ -14,6 +17,11 @@ public class WebUI {
     private boolean playingTileSelected;
     private String selectedRow;
     private String selectedColumn;
+    private static final String GAME_NAME = "tetravex";
+    @Autowired
+    private ScoreService scoreService;
+    private JFrame frame = new JFrame();
+
 
 
     public void processCommand(String command, String row, String column) {
@@ -64,6 +72,8 @@ public class WebUI {
                             selectedRow = null;
                             playingTileSelected = false;
                             startingTileSelected = false;
+                            popUp();
+
                         }
                     } else {
                         System.out.println("You need to click on starting field");
@@ -85,6 +95,7 @@ public class WebUI {
                             selectedRow = null;
                             playingTileSelected = false;
                             startingTileSelected = false;
+                            popUp();
                         }
                         gameStarted = true;
                     } else {
@@ -140,6 +151,25 @@ public class WebUI {
         sb.format("<br></br>");
         sb.format("<br></br>");
         sb.format("</a>");
+    }
+
+    private void popUp(){
+        if (field.getState() == GameState.SOLVED){
+            frame.setVisible(true);
+            frame.setLocationRelativeTo(null);
+
+            String name = JOptionPane.showInputDialog(
+                    frame,
+                    "Enter your name",
+                    "Congratulations you are winner",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            if(name == null || name.equals("")){
+                name = "Unknown player";
+            }
+            System.out.printf("Your name is'%s'.\n", name);
+        }
     }
 
 
