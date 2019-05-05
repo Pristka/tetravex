@@ -122,7 +122,7 @@ public class Field {
     public void swapTiles(int rowF1, int columnF1, int rowF2, int columnF2){
         if(state == GameState.PLAYING){
 
-            if(playingField[rowF1][columnF1].getUpperNumber() == 0 & startingField[rowF2][columnF2].getUpperNumber() == 0){
+            if(startingField[rowF1][columnF1].getUpperNumber() == 0 && playingField[rowF2][columnF2].getUpperNumber() == 0){
                 System.out.println("Swapping two empty tiles has no effect");
             } else{
                 int upper = startingField[rowF1][columnF1].getUpperNumber();
