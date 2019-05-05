@@ -1,12 +1,15 @@
 package sk.tuke.gamestudio.game.tetravex.olejnik.webui;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import sk.tuke.gamestudio.entity.Score;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.GameState;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Tile;
+import sk.tuke.gamestudio.service.ScoreException;
 import sk.tuke.gamestudio.service.ScoreService;
 
 import javax.swing.*;
+import java.util.Date;
 import java.util.Formatter;
 
 public class WebUI {
@@ -72,7 +75,6 @@ public class WebUI {
                             selectedRow = null;
                             playingTileSelected = false;
                             startingTileSelected = false;
-                            popUp();
 
                         }
                     } else {
@@ -95,7 +97,7 @@ public class WebUI {
                             selectedRow = null;
                             playingTileSelected = false;
                             startingTileSelected = false;
-                            popUp();
+
                         }
                         gameStarted = true;
                     } else {
@@ -105,6 +107,7 @@ public class WebUI {
                 default:
                     System.out.println("Incorrect command");
             }
+            popUp();
         }
 
     }
@@ -157,18 +160,27 @@ public class WebUI {
         if (field.getState() == GameState.SOLVED){
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
 
             String name = JOptionPane.showInputDialog(
                     frame,
-                    "Enter your name",
+                    "Would you like to enter your name?",
                     "Congratulations you are winner",
                     JOptionPane.INFORMATION_MESSAGE
             );
-
+            frame.dispose();
             if(name == null || name.equals("")){
                 name = "Unknown player";
             }
             System.out.printf("Your name is'%s'.\n", name);
+
+            try {
+                scoreService.addScore(new Score(GAME_NAME,name,field.getScore(),new Date()));
+                System.out.println("Your score was added to database");
+            }catch (ScoreException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
