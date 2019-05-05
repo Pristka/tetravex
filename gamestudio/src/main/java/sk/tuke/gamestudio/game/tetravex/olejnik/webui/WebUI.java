@@ -10,6 +10,8 @@ public class WebUI {
 
     private Field field;
     private boolean gameStarted;
+    private boolean startingTileSelected;
+    private boolean playingTileSelected;
     private String selectedRow;
     private String selectedColumn;
 
@@ -18,11 +20,17 @@ public class WebUI {
         if (command == null) {
             field = new Field(3, 3);
             gameStarted = false;
+            playingTileSelected = false;
+            startingTileSelected = false;
         } else {
             switch (command) {
                 case "new":
                     field = new Field(3, 3);
                     gameStarted = false;
+                    selectedColumn = null;
+                    selectedRow = null;
+                    playingTileSelected = false;
+                    startingTileSelected = false;
                     break;
                 case "shuffle":
                     field.switchNumbers();
@@ -41,19 +49,48 @@ public class WebUI {
                         System.out.println("Game has already begun");
                     }
                     break;
-                case "select":
-                    if (selectedRow == null || selectedColumn == null) {
-                        selectedRow = row;
-                        selectedColumn = column;
-                    } else {
-                        field.swapTiles(Integer.valueOf(selectedRow),
-                                Integer.valueOf(selectedColumn),
-                                Integer.valueOf(row),
-                                Integer.valueOf(column));
-                        selectedColumn = null;
-                        selectedRow = null;
+                case "select_playing":
+                    if (!playingTileSelected) {
+                        if (selectedRow == null || selectedColumn == null) {
+                            selectedRow = row;
+                            selectedColumn = column;
+                            playingTileSelected = true;
+                        } else {
+                            field.swapTiles(Integer.valueOf(row),
+                                    Integer.valueOf(column),
+                                    Integer.valueOf(selectedRow),
+                                    Integer.valueOf(selectedColumn));
+                            selectedColumn = null;
+                            selectedRow = null;
+                            playingTileSelected = false;
+                            startingTileSelected =false;
+                        }
+                    }
+                    else {
+                        System.out.println("You need to click on starting field");
                     }
                     gameStarted = true;
+                    break;
+                case "select_starting":
+                    if(!startingTileSelected) {
+                        if (selectedRow == null || selectedColumn == null) {
+                            selectedRow = row;
+                            selectedColumn = column;
+                            startingTileSelected = true;
+                        } else {
+                            field.swapTiles(Integer.valueOf(row),
+                                    Integer.valueOf(column),
+                                    Integer.valueOf(selectedRow),
+                                    Integer.valueOf(selectedColumn));
+                            selectedColumn = null;
+                            selectedRow = null;
+                            playingTileSelected = false;
+                            startingTileSelected = false;
+                        }
+                        gameStarted = true;
+                    } else {
+                        System.out.println("You need to click on playing field");
+                    }
                     break;
                 default:
                     System.out.println("Incorrect command");
@@ -72,7 +109,7 @@ public class WebUI {
             sb.format("<tr>\n");
             for (int column = 0; column < field.getColumnCount(); column++) {
                 Tile tile = field.getTile(field.getPlayingField(), row, column);
-                renderField(sb, row, column, tile);
+                renderField(sb, "select_playing", row, column, tile);
             }
         }
         sb.format("</table>\n");
@@ -83,7 +120,7 @@ public class WebUI {
             sb.format("<tr>\n");
             for (int column = 0; column < field.getColumnCount(); column++) {
                 Tile tile2 = field.getTile(field.getStartingField(), row, column);
-                renderField(sb, row, column, tile2);
+                renderField(sb, "select_starting", row, column, tile2);
 
             }
         }
@@ -93,9 +130,9 @@ public class WebUI {
         return sb.toString();
     }
 
-    private void renderField(Formatter sb, int row, int column, Tile tile) {
+    private void renderField(Formatter sb, String command, int row, int column, Tile tile) {
         sb.format("<td>\n");
-        sb.format("<a href='/tetravex-olejnik?command=select&row=%d&column=%d'>", row, column);
+        sb.format("<a href='/tetravex-olejnik?command=%s&row=%d&column=%d'>", command, row, column);
         sb.format("\\" + tile.getUpperNumber() + "/");
         sb.format("<br></br>");
         sb.format(" " + tile.getLeftNumber() + "|" + tile.getRightNumber() + " " + " ");
