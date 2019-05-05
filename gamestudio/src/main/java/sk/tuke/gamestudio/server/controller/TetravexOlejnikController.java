@@ -22,7 +22,7 @@ import java.util.List;
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class TetravexOlejnikController {
 
-    private WebUI webUI = new WebUI();
+    private WebUI webUI;
 
     private final ScoreService scoreService;
 
@@ -33,10 +33,11 @@ public class TetravexOlejnikController {
     private Field field = new Field(3,3);
 
     @Autowired
-    public TetravexOlejnikController(ScoreService scoreService, CommentService commentService, RatingService ratingService) {
+    public TetravexOlejnikController(ScoreService scoreService, CommentService commentService, RatingService ratingService, WebUI webUI) {
         this.scoreService = scoreService;
         this.commentService = commentService;
         this.ratingService = ratingService;
+        this.webUI = webUI;
     }
 
 
