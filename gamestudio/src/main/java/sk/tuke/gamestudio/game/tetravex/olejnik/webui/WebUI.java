@@ -56,23 +56,22 @@ public class WebUI {
                             selectedColumn = column;
                             playingTileSelected = true;
                         } else {
-                            field.swapTiles(Integer.valueOf(row),
-                                    Integer.valueOf(column),
-                                    Integer.valueOf(selectedRow),
-                                    Integer.valueOf(selectedColumn));
+                            field.swapTiles(Integer.valueOf(selectedRow),
+                                    Integer.valueOf(selectedColumn),
+                                    Integer.valueOf(row),
+                                    Integer.valueOf(column));
                             selectedColumn = null;
                             selectedRow = null;
                             playingTileSelected = false;
-                            startingTileSelected =false;
+                            startingTileSelected = false;
                         }
-                    }
-                    else {
+                    } else {
                         System.out.println("You need to click on starting field");
                     }
                     gameStarted = true;
                     break;
                 case "select_starting":
-                    if(!startingTileSelected) {
+                    if (!startingTileSelected) {
                         if (selectedRow == null || selectedColumn == null) {
                             selectedRow = row;
                             selectedColumn = column;
