@@ -85,7 +85,7 @@ public class TetravexOlejnikController {
     public String score(String player,Model model){
         model.addAttribute("webUI", webUI);
         try{
-            scoreService.addScore(new Score("tetravex",player,webUI.getWinningScore(),new Date()));
+            scoreService.addScore(new Score("tetravex",player,webUI.getCurrentScore(),new Date()));
         }catch (ScoreException e){
             System.out.println(e.getMessage());
         }

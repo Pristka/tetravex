@@ -29,6 +29,11 @@ public class WebUI {
     private ServletContext servletContext;
    // private JFrame frame = new JFrame();
 
+
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
     public void processCommand(String command, String row, String column) {
         if (command == null) {
             field = new Field(3, 3);
@@ -121,7 +126,7 @@ public class WebUI {
                 default:
                     System.out.println("Incorrect command");
             }
-            //popUp();
+            saveScore();
         }
 
     }
@@ -184,40 +189,10 @@ public class WebUI {
         sb.format("</a></h1>");
     }
 
-    private void popUp(){
+    private void saveScore(){
         if (field.getState() == GameState.SOLVED){
-
-//            frame.setVisible(true);
-//            frame.setLocationRelativeTo(null);
-//            frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-//
-//
-//            String name = JOptionPane.showInputDialog(
-//                   null,
-//                    "Would you like to enter your name?",
-//                    "Congratulations you are winner",
-//                    JOptionPane.INFORMATION_MESSAGE
-//            );
-//
-//            if(name == null || name.equals("")){
-//                name = "Unknown player";
-//            }
-//            System.out.printf("Your name is'%s'.\n", name);
-
-//            try {
-//                scoreService.addScore(new Score(GAME_NAME,"headlesss",field.getScore(),new Date()));
-//                System.out.println("Your score was added to database");
-//            }catch (ScoreException e){
-//                System.out.println(e.getMessage());
-            //}
+            currentScore = field.getScore();
         }
-    }
-
-    public int getWinningScore(){
-        if (field.getState() == GameState.SOLVED){
-             currentScore = field.getScore();
-        }
-        return currentScore;
     }
 
     public boolean isWon(){
