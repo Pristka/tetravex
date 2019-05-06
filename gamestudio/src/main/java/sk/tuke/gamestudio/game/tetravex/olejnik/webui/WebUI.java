@@ -8,6 +8,7 @@ import sk.tuke.gamestudio.game.tetravex.olejnik.core.Tile;
 import sk.tuke.gamestudio.service.ScoreException;
 import sk.tuke.gamestudio.service.ScoreService;
 
+import javax.servlet.ServletContext;
 import javax.swing.*;
 import java.util.Date;
 import java.util.Formatter;
@@ -23,6 +24,8 @@ public class WebUI {
     private static final String GAME_NAME = "tetravex";
     @Autowired
     public ScoreService scoreService;
+    @Autowired
+    private ServletContext servletContext;
     private JFrame frame = new JFrame();
 
     public void processCommand(String command, String row, String column) {
@@ -140,7 +143,13 @@ public class WebUI {
         }
 
         sb.format("</table>\n");
+        sb.format("<td>");
+        for (int i = 0; i < 37 ; i++) {
 
+            sb.format("|" );
+            sb.format(" ");
+            sb.format("<br>");
+        }
         sb.format("<td>");
         sb.format("<h3>Starting field</h3>");
 
@@ -155,6 +164,7 @@ public class WebUI {
 
             }
         }
+
         sb.format("</table>\n");
 
         sb.format("</table>\n");
@@ -163,14 +173,14 @@ public class WebUI {
 
     private void renderField(Formatter sb, String command, int row, int column, Tile tile) {
         sb.format("<td>\n");
-        sb.format("<h3><a href='/tetravex-olejnik?command=%s&row=%d&column=%d'>", command, row, column);
+        sb.format("<h1><a href='/tetravex-olejnik?command=%s&row=%d&column=%d'>", command, row, column);
         sb.format("\\" + tile.getUpperNumber() + "/"+ " ");
         sb.format("<br></br>");
         sb.format(" " + tile.getLeftNumber() + "|" + tile.getRightNumber() + " " );
         sb.format("<br></br>");
-        sb.format("/" + tile.getBottomNumber() + "\\" );
+        sb.format("/" + tile.getBottomNumber() + "\\" + " ");
         sb.format("<br></br>");
-        sb.format("</a></h3>");
+        sb.format("</a></h1>");
     }
 
     private void popUp(){

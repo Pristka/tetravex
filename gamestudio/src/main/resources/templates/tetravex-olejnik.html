@@ -4,7 +4,7 @@
     <title>Tetravex</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <link rel="stylesheet" href="/css/tetravex-olejnik.css" />
+    <link rel="stylesheet" th:href="@{/css/tetravex-olejnik.css}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css"
@@ -60,16 +60,17 @@
 
 <br>
 <!-- Here add commands (buttons) for controlling your game, e.g.: -->
-<a href="/tetravex-olejnik?command=new">New Game</a>
-<a href="/tetravex-olejnik?command=shuffle">Shuffle numbers</a>
-<a href="/tetravex-olejnik?command=fast">Fast mode</a>
+<a th:href="@{/tetravex-olejnik?command=new}">New Game</a>
+<a th:href="@{/tetravex-olejnik?command=shuffle}">Shuffle numbers</a>
+<a th:href="@{/tetravex-olejnik?command=fast}">Fast mode</a>
+
 <hr/>
 
-<p th:utext='${webUI.renderAsHtml()}' />
+<div th:utext='${@webUI.renderAsHtml()}' />
 
 <div id="Comment">
 <fieldset>
-    <form action="/comment" method="post">
+    <form th:action="@{comment}" method="post">
         <label>Player Name:</label>
         <label>
             <input name="player" type="text" th:required="required"/>
@@ -85,7 +86,7 @@
 
 <div id="Rating">
     <fieldset>
-        <form action="/rating" method="post">
+        <form th:action="@{rating}" method="post">
             <label>Player Name:</label>
             <label>
                 <input name="player" type="text" th:required="required"/>

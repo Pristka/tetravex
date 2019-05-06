@@ -63,14 +63,24 @@ public class TetravexOlejnikController {
     @RequestMapping("/comment")
     public String comment(String player, String comment, Model model) throws CommentException {
         model.addAttribute("webUI", webUI);
-        commentService.addComment(new Comment(player,"tetravex",comment,new Date()));
+        try {
+            commentService.addComment(new Comment(player,"tetravex",comment,new Date()));
+        }catch (CommentException e){
+            System.out.println(e.getMessage());
+        }
+
         return "tetravex-olejnik";
     }
 
     @RequestMapping("/rating")
     public String rating(String player, int rating, Model model) throws RatingException {
         model.addAttribute("webUI", webUI);
-        ratingService.setRating(new Rating(player,"tetravex",rating,new Date()));
+        try{
+            ratingService.setRating(new Rating(player,"tetravex",rating,new Date()));
+        }catch (RatingException e){
+            System.out.println(e.getMessage());
+        }
+
         return "tetravex-olejnik";
     }
 
