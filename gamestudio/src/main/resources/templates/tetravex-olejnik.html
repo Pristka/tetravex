@@ -8,46 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css"
-          href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" />
+          href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-
-    <!-- Hall of Fame example with JavaScript  -->
-    <script type="text/javascript">
-
-        //<![CDATA[
-        $(document).ready(function () {
-            $.ajax({
-                url: "/rest/score/tetravex"
-            }).done(function (json) {
-                for (var i = 0; i < json.length; i++) {
-                    var score = json[i];
-                    $("#scoreList").append($("<li>" + score.player + " " + score.points + " " + score.playedOn + "</li>"));
-                }
-            });
-        });
-
-        $(document).ready(function () {
-            $.ajax({
-                url: "/rest/comment/tetravex"
-            }).done(function (json) {
-                for (var i = 0; i < json.length; i++) {
-                    var comment = json[i];
-                    var date = new Date(comment.commentedOn);
-                    $("#commentList").append($("<li>" + comment.player + " " + comment.comment + " " + date + "</li>"));
-                }
-            });
-        });
-
-        $(document).ready(function () {
-            $.ajax({
-                url: "/rest/rating/tetravex"
-            }).done(function (json) {
-                    $(" #avgRating").append($("<span>" + json + "</span>"));
-
-            });
-        });
-        //]]>
-    </script>
 
 </head>
 
@@ -68,6 +30,19 @@
 
 <div th:utext='${@webUI.renderAsHtml()}' />
 
+<div id="Name">
+
+    <form th:action="@{score}" method="post">
+        <label>Player Name:</label>
+        <label>
+            <input name="player" type="text" th:required="required"/>
+        </label>
+        <br/><br/>
+        <input type="submit" value="ADD Name" class="button"/><br/>
+    </form>
+
+
+</div>
 <div id="Comment">
 <fieldset>
     <form th:action="@{comment}" method="post">
@@ -101,15 +76,60 @@
 </div>
 
 <h2>Hall of fame</h2>
-
+<br/>
 <h3>Score List</h3>
-<ol id="scoreList"></ol>
-
+<br/>
+<table>
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            Points
+        </th>
+        <th>
+            PlayedOn
+        </th>
+    </tr>
+    <tr th:each="score: ${scores}">
+        <td th:text="${score.player}"/>
+        <td th:text="${score.points}"/>
+        <td th:text="${score.playedOn}"/>
+    </tr>
+</table>
+<br/>
 <h3>Comment List</h3>
-<ol id="commentList"></ol>
-
+<br/>
+<table>
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            Comment
+        </th>
+        <th>
+            CommentedOn
+        </th>
+    </tr>
+    <tr th:each="comment: ${comments}">
+        <td th:text="${comment.player}"/>
+        <td th:text="${comment.comment}"/>
+        <td th:text="${comment.commentedOn}"/>
+    </tr>
+</table>
 <h3>Average rating</h3>
-<ol id="avgRating"></ol>
+<div th:text="${averageRating}"/>
+
+
+
+<!--<ol id="scoreList"></ol>-->
+
+<!--<h3>Comment List</h3>-->
+<!--<ol id="commentList"></ol>-->
+
+<!--<h3>Average rating</h3>-->
+<!--<ol id="avgRating"></ol>-->
 
 <!--<h3>Client side generation - jQuery DataTable</h3>-->
 <!--<table id="example"/>-->

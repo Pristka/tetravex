@@ -20,13 +20,14 @@ public class WebUI {
     private boolean startingTileSelected;
     private boolean playingTileSelected;
     private String selectedRow;
+    private int currentScore;
     private String selectedColumn;
     private static final String GAME_NAME = "tetravex";
     @Autowired
     public ScoreService scoreService;
     @Autowired
     private ServletContext servletContext;
-    private JFrame frame = new JFrame();
+   // private JFrame frame = new JFrame();
 
     public void processCommand(String command, String row, String column) {
         if (command == null) {
@@ -58,10 +59,10 @@ public class WebUI {
                         field.swapTiles(2, 1, 2, 1);
                         field.swapTiles(2, 2, 2, 2);
                     } else {
-                        JOptionPane.showMessageDialog(null,
-                                " You can't use fast mode because game has already begun",
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
+//                        JOptionPane.showMessageDialog(null,
+//                                " You can't use fast mode because game has already begun",
+//                                "Error",
+//                                JOptionPane.ERROR_MESSAGE);
                         System.out.println("Game has already begun");
                     }
                     break;
@@ -83,10 +84,10 @@ public class WebUI {
 
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null,
-                                "You need to click on starting field",
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
+//                        JOptionPane.showMessageDialog(null,
+//                                "You need to click on starting field",
+//                                "Error",
+//                                JOptionPane.ERROR_MESSAGE);
                         System.out.println("You need to click on starting field");
                     }
                     gameStarted = true;
@@ -110,17 +111,17 @@ public class WebUI {
                         }
                         gameStarted = true;
                     } else {
-                        JOptionPane.showMessageDialog(null,
-                                "You need to click on playing field",
-                                "Error",
-                                JOptionPane.ERROR_MESSAGE);
+//                        JOptionPane.showMessageDialog(null,
+//                                "You need to click on playing field",
+//                                "Error",
+//                                JOptionPane.ERROR_MESSAGE);
                         System.out.println("You need to click on playing field");
                     }
                     break;
                 default:
                     System.out.println("Incorrect command");
             }
-            popUp();
+            //popUp();
         }
 
     }
@@ -173,7 +174,7 @@ public class WebUI {
 
     private void renderField(Formatter sb, String command, int row, int column, Tile tile) {
         sb.format("<td>\n");
-        sb.format("<h1><a href='/tetravex-olejnik?command=%s&row=%d&column=%d'>", command, row, column);
+        sb.format("<h1><a href='%s/tetravex-olejnik?command=%s&row=%d&column=%d'>",servletContext.getContextPath(), command, row, column);
         sb.format("\\" + tile.getUpperNumber() + "/"+ " ");
         sb.format("<br></br>");
         sb.format(" " + tile.getLeftNumber() + "|" + tile.getRightNumber() + " " );
@@ -185,30 +186,38 @@ public class WebUI {
 
     private void popUp(){
         if (field.getState() == GameState.SOLVED){
-            frame.setVisible(true);
-            frame.setLocationRelativeTo(null);
-            frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
+//            frame.setVisible(true);
+//            frame.setLocationRelativeTo(null);
+//            frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//
+//
+//            String name = JOptionPane.showInputDialog(
+//                   null,
+//                    "Would you like to enter your name?",
+//                    "Congratulations you are winner",
+//                    JOptionPane.INFORMATION_MESSAGE
+//            );
+//
+//            if(name == null || name.equals("")){
+//                name = "Unknown player";
+//            }
+//            System.out.printf("Your name is'%s'.\n", name);
 
-            String name = JOptionPane.showInputDialog(
-                   null,
-                    "Would you like to enter your name?",
-                    "Congratulations you are winner",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-            frame.dispose();
-            if(name == null || name.equals("")){
-                name = "Unknown player";
-            }
-            System.out.printf("Your name is'%s'.\n", name);
-
-            try {
-                scoreService.addScore(new Score(GAME_NAME,name,field.getScore(),new Date()));
-                System.out.println("Your score was added to database");
-            }catch (ScoreException e){
-                System.out.println(e.getMessage());
-            }
+//            try {
+//                scoreService.addScore(new Score(GAME_NAME,"headlesss",field.getScore(),new Date()));
+//                System.out.println("Your score was added to database");
+//            }catch (ScoreException e){
+//                System.out.println(e.getMessage());
+            //}
         }
+    }
+
+    public int getWinningScore(){
+        if (field.getState() == GameState.SOLVED){
+             currentScore = field.getScore();
+        }
+        return currentScore;
     }
 
     public boolean isWon(){

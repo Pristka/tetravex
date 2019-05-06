@@ -11,7 +11,6 @@ import sk.tuke.gamestudio.entity.Comment;
 import sk.tuke.gamestudio.entity.Rating;
 import sk.tuke.gamestudio.entity.Score;
 import sk.tuke.gamestudio.game.tetravex.olejnik.core.Field;
-import sk.tuke.gamestudio.game.tetravex.olejnik.core.GameState;
 import sk.tuke.gamestudio.game.tetravex.olejnik.webui.WebUI;
 import sk.tuke.gamestudio.service.*;
 
@@ -45,45 +44,76 @@ public class TetravexOlejnikController {
     public String tetravex(@RequestParam(value = "command", required = false) String command,
                            @RequestParam(value = "row", required = false) String row,
                            @RequestParam(value = "column", required = false) String column,
-                        Model model) throws CommentException {
+                        Model model) {
 
         // if required, add additional code, e.g. to check provided parameters for null
 
         webUI.processCommand(command, row, column);
         model.addAttribute("webUI", webUI);
-//        List<Score> bestScores = scoreService.getBestScores("tetravex");
-//        List<Comment> getComments = commentService.getComments("tetravex");
-//        model.addAttribute("scores", bestScores);
-//        model.addAttribute("comments",getComments);
-
+        addServices(model);
         return "tetravex-olejnik"; //same name as the template
 
     }
 
     @RequestMapping("/comment")
-    public String comment(String player, String comment, Model model) throws CommentException {
+    public String comment(String player, String comment, Model model) {
         model.addAttribute("webUI", webUI);
         try {
             commentService.addComment(new Comment(player,"tetravex",comment,new Date()));
         }catch (CommentException e){
             System.out.println(e.getMessage());
         }
-
+        addServices(model);
         return "tetravex-olejnik";
     }
 
     @RequestMapping("/rating")
-    public String rating(String player, int rating, Model model) throws RatingException {
+    public String rating(String player, int rating, Model model) {
         model.addAttribute("webUI", webUI);
         try{
             ratingService.setRating(new Rating(player,"tetravex",rating,new Date()));
         }catch (RatingException e){
             System.out.println(e.getMessage());
         }
+        addServices(model);
+
 
         return "tetravex-olejnik";
     }
 
+    @RequestMapping("/score")
+    public String score(String player,Model model){
+        model.addAttribute("webUI", webUI);
+        try{
+            scoreService.addScore(new Score("tetravex",player,webUI.getWinningScore(),new Date()));
+        }catch (ScoreException e){
+            System.out.println(e.getMessage());
+        }
+        addServices(model);
 
+
+        return "tetravex-olejnik";
+    }
+
+    private void addServices(Model model){
+
+        try {
+            model.addAttribute("scores", scoreService.getBestScores("tetravex"));
+        }catch (ScoreException e){
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            model.addAttribute("comments", commentService.getComments("tetravex"));
+        }catch (CommentException e){
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            model.addAttribute("averageRating", ratingService.getAverageRating("tetravex"));
+        }catch (RatingException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
 }
